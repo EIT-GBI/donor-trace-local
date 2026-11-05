@@ -40,9 +40,13 @@ sequences separates them, and a read off one aligns in pieces that land on
 different contigs — which is why tier 1 keeps supplementary alignments.
 
 ## Running it
-
+Install all the dependencies and set up the environment with:
 ```bash
 bash setup.sh                 # once
+```
+Create your samplesheet.csv file with long or short reads and pass it to the config.txt, i.e. specify it there.
+Edit any other settings you may want in `config.txt` (like output directory) and then run the pipeline with:
+```bash
 # edit config.txt and samplesheet_ont.csv
 bash run.sh config.txt
 ```
