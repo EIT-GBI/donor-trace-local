@@ -2,11 +2,11 @@
 # donor-trace-local - configuration
 # ---------------------------------------------------------------------------
 
-# Sample sheet. Tab-separated. The columns depend on the platform:
+# Sample sheet, CSV. The columns depend on the platform:
 #   ont        sample  fastq1  recipient  bac
 #   illumina   sample  fastq1  fastq2  recipient  bac
 # recipient and bac are paths to FASTA files.
-SAMPLESHEET=samplesheet_illumina.tsv
+SAMPLESHEET=samplesheet_illumina.csv
 
 # ont or illumina. One platform per run - make a second config for the other.
 PLATFORM=illumina

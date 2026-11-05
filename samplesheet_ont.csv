@@ -1,0 +1,5 @@
+sample,fastq1,recipient,bac
+SF1-1.2A,/Users/cristian.soitu/Data/rahan-nazeer/nanopore/PVV7W5_2_SF1_BAC_1.2A_nanopore.fastq.gz,/Users/cristian.soitu/Data/rahan-nazeer/ref/chrom.fa,/Users/cristian.soitu/Data/rahan-nazeer/ref/SF1_BAC.fa
+SF2-2.1A,/Users/cristian.soitu/Data/rahan-nazeer/nanopore/PVV7W5_3_SF2_BAC_2.1A_nanopore.fastq.gz,/Users/cristian.soitu/Data/rahan-nazeer/ref/chrom.fa,/Users/cristian.soitu/Data/rahan-nazeer/ref/SF2_BAC.fa
+SF3-3.1,/Users/cristian.soitu/Data/rahan-nazeer/nanopore/PVV7W5_4_SF_BAC_3.1_nanopore.fastq.gz,/Users/cristian.soitu/Data/rahan-nazeer/ref/chrom.fa,/Users/cristian.soitu/Data/rahan-nazeer/ref/SF3_BAC.fa
+miniREXER-1,/Users/cristian.soitu/Data/rahan-nazeer/nanopore/PVV7W5_1_miniREX_BAC_1_nanopore.fastq.gz,/Users/cristian.soitu/Data/rahan-nazeer/ref/chrom.fa,/Users/cristian.soitu/Data/rahan-nazeer/ref/miniREXER_BAC.fa

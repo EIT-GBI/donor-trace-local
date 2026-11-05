@@ -90,14 +90,20 @@ echo "    platform $PLATFORM"
 echo "    outdir   $OUTDIR"
 
 # --- the sample sheet -------------------------------------------------------
-# ONT sheets have no fastq2 column. Rewrite both layouts into one five-column
-# form (sample, fastq1, fastq2, recipient, bac) so the rest of the script has a
-# single code path.
+# The sheet is CSV. ONT sheets have no fastq2 column. Convert both layouts to
+# one tab-separated five-column form (sample, fastq1, fastq2, recipient, bac)
+# so the rest of the script has a single code path.
+#
+# `tr -d '\r'` because a CSV saved from Excel carries CRLF line endings, and a
+# trailing \r silently becomes part of the last field - here a file path, which
+# then does not exist for reasons invisible in the error message.
 SHEET="$OUTDIR/samplesheet.normalised.tsv"
 if [ "$PLATFORM" = "ont" ]; then
-  tail -n +2 "$SAMPLESHEET" | awk -F'\t' -v OFS='\t' '{print $1, $2, "", $3, $4}' > "$SHEET"
+  tail -n +2 "$SAMPLESHEET" | tr -d '\r' \
+    | awk -F',' -v OFS='\t' '{print $1, $2, "", $3, $4}' > "$SHEET"
 else
-  tail -n +2 "$SAMPLESHEET" | cut -f1-5 > "$SHEET"
+  tail -n +2 "$SAMPLESHEET" | tr -d '\r' \
+    | awk -F',' -v OFS='\t' '{print $1, $2, $3, $4, $5}' > "$SHEET"
 fi
 
 # --- 1. references, one set per BAC -----------------------------------------
@@ -147,11 +153,14 @@ while IFS= read -r LINE; do
     if [ "$PLATFORM" = "illumina" ]; then
       fastp -w 4 -i "$FASTQ1" -I "$FASTQ2" \
             -o "$TRIM_DIR/$SAMPLE.1.fq.gz" -O "$TRIM_DIR/$SAMPLE.2.fq.gz" \
-            --detect_adapter_for_pe -l 40 2> "$LOG_DIR/$SAMPLE.fastp.log"
+            --detect_adapter_for_pe -l 40 \
+            -j "$LOG_DIR/$SAMPLE.fastp.json" -h "$LOG_DIR/$SAMPLE.fastp.html" \
+            2> "$LOG_DIR/$SAMPLE.fastp.log"
       FASTQ1="$TRIM_DIR/$SAMPLE.1.fq.gz"
       FASTQ2="$TRIM_DIR/$SAMPLE.2.fq.gz"
     else
       fastp -i "$FASTQ1" -o "$TRIM_DIR/$SAMPLE.fq.gz" -l 200 -Q \
+            -j "$LOG_DIR/$SAMPLE.fastp.json" -h "$LOG_DIR/$SAMPLE.fastp.html" \
             2> "$LOG_DIR/$SAMPLE.fastp.log"
       FASTQ1="$TRIM_DIR/$SAMPLE.fq.gz"
     fi
