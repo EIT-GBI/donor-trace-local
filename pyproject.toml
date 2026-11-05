@@ -1,0 +1,6 @@
+[project]
+name = "donor-trace-local"
+version = "0.1.0"
+description = "Trace donor sequence through a recipient genome, allele by allele"
+requires-python = ">=3.10"
+dependencies = ["matplotlib>=3.8"]

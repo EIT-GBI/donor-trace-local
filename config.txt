@@ -1,0 +1,48 @@
+# ---------------------------------------------------------------------------
+# donor-trace-local - configuration
+# ---------------------------------------------------------------------------
+
+# Sample sheet. Tab-separated. The columns depend on the platform:
+#   ont        sample  fastq1  recipient  bac
+#   illumina   sample  fastq1  fastq2  recipient  bac
+# recipient and bac are paths to FASTA files.
+SAMPLESHEET=samplesheet_ont.tsv
+
+# ont or illumina. One platform per run - make a second config for the other.
+PLATFORM=ont
+
+# Everything is written here. References land in $OUTDIR/reference.
+OUTDIR=/Users/cristian.soitu/Data/rahan-nazeer/pipeline_ont
+
+THREADS=10
+
+# A BAC/recipient alignment shorter than this is not treated as synteny.
+MIN_SYNTENY_LEN=1000
+
+# A diagnostic SNP needs this many reads carrying one of the two expected
+# alleles before it is scored.
+MIN_DEPTH=10
+
+# Bases below this quality are ignored. ONT 10, Illumina 20.
+MIN_BASEQ=10
+
+# Rolling mean for the plots, in NUMBER OF SNPS (not bp). 1 turns it off.
+SMOOTH_WINDOW=11
+
+# Plot legend labels.
+RECIPIENT_LABEL=recipient
+BAC_LABEL=BAC
+
+# Adapter/quality trimming with fastp. Worth it for Illumina, pointless for ONT.
+TRIM=0
+
+# Needed for bigwig tracks. setup.sh puts it here. Pipeline still runs without
+# it, just with no tracks. Path is relative to the pipeline folder.
+BEDGRAPH_TO_BIGWIG=tools/ucsc/bedGraphToBigWig
+
+# 1 re-does samples that already have output.
+FORCE=0
+
+# Junction detection: shortest alignment piece that counts as an anchor. A
+# read must have a piece this long on the BAC AND one on the recipient.
+MIN_ANCHOR=500
